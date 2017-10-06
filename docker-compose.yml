@@ -6,7 +6,7 @@ services:
     build: elasticsearch/
     volumes:
       - ./elasticsearch/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
-      - /home/cosminghita/elk-data:/usr/share/elasticsearch/data
+      - /app/live/elastic-data/:/usr/share/elasticsearch/data
     ports:
       - "9200"
       - "9300"
@@ -23,7 +23,7 @@ services:
       - ./logstash/config/logstash.yml:/usr/share/logstash/config/logstash.yml
       - ./logstash/pipeline:/usr/share/logstash/pipeline
     ports:
-      - "5045:5000"
+      - "5046:5000"
     environment:
       LS_JAVA_OPTS: "-Xmx256m -Xms256m"
     networks:
