@@ -6,10 +6,13 @@ services:
     build: elasticsearch/
     volumes:
       - ./elasticsearch/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+      - /home/cosminghita/elk-data:/usr/share/elasticsearch/data
     ports:
-      - "9200:9200"
-      - "9300:9300"
+      - "9200"
+      - "9300"
     environment:
+# use internal Docker round-robin DNS for unicast discovery
+      discovery.zen.ping.unicast.hosts: elasticsearch
       ES_JAVA_OPTS: "-Xmx256m -Xms256m"
     networks:
       - elk
@@ -20,7 +23,7 @@ services:
       - ./logstash/config/logstash.yml:/usr/share/logstash/config/logstash.yml
       - ./logstash/pipeline:/usr/share/logstash/pipeline
     ports:
-      - "5000:5000"
+      - "5045:5000"
     environment:
       LS_JAVA_OPTS: "-Xmx256m -Xms256m"
     networks:
